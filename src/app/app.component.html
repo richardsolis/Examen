@@ -1,0 +1,69 @@
+<div class="container">
+    <h1>Servicios</h1>
+    <ul class="nav nav-custom">
+        <li class="nav-item" (click)="filter(1)">
+            <a class="nav-link active" href="#">Todos</a>
+        </li>
+        <li class="nav-item" (click)="filter(2)">
+            <a class="nav-link" href="#">Autos</a>
+        </li>
+        <li class="nav-item" (click)="filter(3)">
+            <a class="nav-link" href="#">Salud</a>
+        </li>
+        <li class="nav-item" (click)="filter(4)">
+            <a class="nav-link" href="#">Hogar</a>
+        </li>
+    </ul>
+
+    <div class="row container-cards">
+        <div class="col-lg-8 row">
+            <div class="col-lg-4" *ngFor="let data of data |filter:term; let i = index">
+                <div class="card" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{data.name}}</h5>
+                        <span>{{data.category}}</span>
+                        <p class="card-text">{{data.description}}</p>
+                    </div>
+                    <div class="card-header">
+                        <button type="button" class="btn btn-link" (click)="edit(data,i)">Editar</button>
+                        <button type="button" class="btn btn-link" (click)="remove(data,i)">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Servicio</h5>
+                    <div class="form-group">
+                      <label for="name">Nombre</label>
+                      <input type="text" class="form-control" id="name" [(ngModel)]="name">
+                    </div>
+                    <div class="form-group">
+                      <label for="description">Descripción</label>
+                      <input type="text" class="form-control" id="description" [(ngModel)]="description">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Selecciona categoria</label>
+                        <select [(ngModel)]="category" class="form-control" id="exampleFormControlSelect1">
+                          <option selected="true" disabled="disabled" value="select">seleccione la marca</option>
+                          <option value="auto">Auto</option>
+                          <option value="hogar">Hogar</option>
+                          <option value="salud">Salud</option>
+                        </select>
+                      </div>
+                </div>
+                <div class="card-header buttons-actions">
+                    <button type="button" class="btn btn-outline-success" (click)="save()" *ngIf="editOrPublic == 0">Grabar</button>
+                    <button type="button" class="btn btn-outline-success" (click)="editSave()" *ngIf="editOrPublic == 1">Editar</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="cancel()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger alert-custom"  [ngClass]="alert != 0 ? 'alertShow' : 'alertNone' " role="alert">
+     {{textAlert}}
+    </div>
+</div>
+
